@@ -16,6 +16,7 @@
 		4DCCAD8A2C927DB6003C6970 /* SwiftUILearningUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCAD892C927DB6003C6970 /* SwiftUILearningUITests.swift */; };
 		4DCCAD8C2C927DB6003C6970 /* SwiftUILearningUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCAD8B2C927DB6003C6970 /* SwiftUILearningUITestsLaunchTests.swift */; };
 		4DCCAD992C927E48003C6970 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCAD982C927E48003C6970 /* SwiftUIView.swift */; };
+		4DF53C722CA1628C00DBD535 /* customView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF53C712CA1628C00DBD535 /* customView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		4DCCAD892C927DB6003C6970 /* SwiftUILearningUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUILearningUITests.swift; sourceTree = "<group>"; };
 		4DCCAD8B2C927DB6003C6970 /* SwiftUILearningUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUILearningUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4DCCAD982C927E48003C6970 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		4DF53C712CA1628C00DBD535 /* customView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				4DCCAD732C927DB6003C6970 /* SwiftUILearning.entitlements */,
 				4DCCAD742C927DB6003C6970 /* Preview Content */,
 				4DCCAD982C927E48003C6970 /* SwiftUIView.swift */,
+				4DF53C712CA1628C00DBD535 /* customView.swift */,
 			);
 			path = SwiftUILearning;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DF53C722CA1628C00DBD535 /* customView.swift in Sources */,
 				4DCCAD6E2C927DB5003C6970 /* ContentView.swift in Sources */,
 				4DCCAD702C927DB5003C6970 /* Item.swift in Sources */,
 				4DCCAD992C927E48003C6970 /* SwiftUIView.swift in Sources */,
