@@ -25,7 +25,7 @@ struct SwiftUILearningApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            JPFMapView()
         }
         .modelContainer(sharedModelContainer)
     }
