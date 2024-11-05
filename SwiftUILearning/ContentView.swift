@@ -75,6 +75,11 @@ struct PixelArtView: View {
                     saveImage()
                 }
                 .padding()
+                
+                Button("connect") {
+                    NIOClient.shared.connect(host: "lucymocktrade.qiuer.cc", port: 9932)
+                }
+                .padding()
             }
             .padding()
             .alert(isPresented: $showingSaveAlert) {
