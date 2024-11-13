@@ -1,77 +1,13 @@
 import NIO
 import NIOTLS
 import NIOSSL
-
-struct CustomMessageHeader {
-    var totalLen: UInt32
-    var serialNo: UInt32
-    var funcId: UInt16
-    var version: UInt8
-    var reserved: Int32
-    var data: Data?
-    
-    func toByteBuffer() -> ByteBuffer {
-        var buffer = ByteBufferAllocator().buffer(capacity: MemoryLayout<CustomMessageHeader>.size)
-        buffer.writeInteger(totalLen, as: UInt32.self)
-        buffer.writeInteger(serialNo, as: UInt32.self)
-        buffer.writeInteger(funcId, as: UInt16.self)
-        buffer.writeInteger(version, as: UInt8.self)
-        buffer.writeInteger(reserved, as: Int32.self)
-        if let data = data {
-            buffer.writeInteger(UInt32(data.count), as: UInt32.self)
-            buffer.writeBytes(data)
-        }
-        return buffer
-    }
-    
-    static func fromByteBuffer(buffer: inout ByteBuffer) -> CustomMessageHeader? {
-        guard buffer.readableBytes >= MemoryLayout<CustomMessageHeader>.size else {
-            return nil
-        }
-        let totalLen = buffer.readInteger(as: UInt32.self)!
-        let serialNo = buffer.readInteger(as: UInt32.self)!
-        let funcId = buffer.readInteger(as: UInt16.self)!
-        let version = buffer.readInteger(as: UInt8.self)!
-        let reserved = buffer.readInteger(as: Int32.self)!
-        let dataLength = buffer.readInteger(as: UInt32.self)!
-        let dataBytes = buffer.readBytes(length: Int(dataLength))
-        let data = dataBytes.flatMap { Data($0) }
-        return CustomMessageHeader(totalLen: totalLen, serialNo: serialNo, funcId: funcId, version: version, reserved: reserved, data: data)
-    }
-}
-
-extension ByteBuffer {
-    func toData() -> Data {
-        return Data(self.readableBytesView)
-    }
-}
-
-func createHeartBeatHeader(flowNo: UInt32) -> CustomMessageHeader {
-    let funcId: UInt16 = 1 // 假设 1 为心跳包功能 ID
-    let version: UInt8 = 1
-    let reserved: Int32 = 0 // 根据需要设置
-    
-    let header = CustomMessageHeader(
-        totalLen: UInt32(MemoryLayout<CustomMessageHeader>.size),
-        serialNo: flowNo,
-        funcId: funcId,
-        version: version,
-        reserved: reserved
-    )
-    
-    return header
-}
+import NIOExtras
 
 class NIOClient {
     static let shared = NIOClient()
     private var group: EventLoopGroup
     private var channel: Channel?
-    private var heartbeatTask: Scheduled<Void>?
     private var isConnected: Bool = false
-    private var flowNo: UInt32 = 1
-    private var heartbeatRetryCount: Int = 0
-    private let maxHeartbeatRetries: Int = 3
-    private let baseHeartbeatRetryDelay: TimeAmount = .seconds(2)
     
     private init() {
         self.group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
@@ -82,109 +18,68 @@ class NIOClient {
     }
     
     func connect(host: String, port: Int) {
-        // 加载客户端证书和私钥
-        let clientCertificate: NIOSSLCertificate
-        let privateKey: NIOSSLPrivateKey
-        let caPath = Bundle.main.path(forResource: "ca", ofType: "cer") ?? ""
-        let clientCerPath = Bundle.main.path(forResource: "client_cer", ofType: "pem") ?? ""
-        let clientPath = Bundle.main.path(forResource: "client_private", ofType: "pem") ?? ""
-        do {
-            clientCertificate = try NIOSSLCertificate.fromPEMFile(caPath)[0]
-            privateKey = try NIOSSLPrivateKey(file: clientPath, format: .pem)
-        } catch {
-            print("Failed to load certificate or private key: \(error)")
-            return;
-        }
-        
-        // 设置 TLS 配置
-        var tlsConfiguration = TLSConfiguration.makeClientConfiguration()
-        tlsConfiguration.certificateChain = [.certificate(clientCertificate)]
-        tlsConfiguration.privateKey = .privateKey(privateKey)
-        tlsConfiguration.trustRoots = .certificates(try! NIOSSLCertificate.fromPEMFile(clientCerPath))
-        
-        // 创建 SSL 上下文
-        let sslContext: NIOSSLContext
-        do {
-            sslContext = try NIOSSLContext(configuration: tlsConfiguration)
-        } catch {
-            print("Failed to create SSL context: \(error)")
-            return
-        }
-        
         // 设置连接引导程序
         let bootstrap = ClientBootstrap(group: group)
+            .connectTimeout(TimeAmount.seconds(300))
             .channelInitializer { channel in
-                do {
-                    let sslHandler = try NIOSSLClientHandler(context: sslContext, serverHostname: host)
-                    return channel.pipeline.addHandlers([sslHandler, self]).map { _ in }
-                } catch {
+                // Define your handlers
+                let inboundHandler = SimpleInboundHandler()
+                let inboundHandler2 = SimpleInboundHandler()
+                let idleStateHandler = IdleStateHandler(readTimeout: TimeAmount.seconds(90),writeTimeout: TimeAmount.seconds(30), allTimeout: TimeAmount.seconds(100))
+                let outboundHandler = SimpleOutboundHandler()
+                let outboundHandler2 = SimpleOutboundHandler()
+                let heartBeatHandler = HeartbeatHandler()
+                //let sslHandler = try! MutualTLSClientHandler.createSSLHandler(host: host)
+                
+                // Return the result of adding handlers, which is an EventLoopFuture
+                return channel.pipeline.addHandlers([DebugInboundEventsHandler(), idleStateHandler, heartBeatHandler, inboundHandler, inboundHandler2, outboundHandler, outboundHandler2, DebugOutboundEventsHandler()]).map {
+                    // This block runs once the handlers are added successfully
+                    print("Handlers added to the pipeline")
+                }.flatMapError { error in
+                    // Handle any errors that occurred while adding handlers
                     print("Failed to add handlers to the channel: \(error)")
-                    return channel.eventLoop.makeFailedFuture(error)
+                    return channel.eventLoop.makeFailedFuture(error)  // Return the failure
                 }
             }
-        
         bootstrap.connect(host: host, port: port).whenComplete { result in
             switch result {
             case .success(let channel):
                 self.channel = channel
                 self.isConnected = true
                 print("Connected to \(host):\(port)")
-                self.startHeartbeat(host: host, port: port)
             case .failure(let error):
                 print("Failed to connect: \(error)")
-                self.scheduleReconnect(host: host, port: port)
             }
         }
     }
     
-    
-    
-    func disconnect() {
-        heartbeatTask?.cancel()
-        if let channel = channel {
-            // Close the channel asynchronously without blocking
-            channel.close(promise: nil)
+    func send() {
+        channel?.writeAndFlush(ByteBuffer(string: "hello world")).whenComplete { result in
+            switch result {
+            case .success:
+                print("Write and flush succeeded")
+                // Handle success here
+            case .failure(let error):
+                print("Write failed with error: \(error)")
+                // Handle failure here
+            }
         }
-        isConnected = false
-        print("Disconnected")
     }
     
-    
-    private let taskQueue = DispatchQueue(label: "heartbeatTaskQueue")
-    
-    private func startHeartbeat(host: String, port: Int) {
-        taskQueue.sync {
-            heartbeatTask?.cancel()
-        }
-        
-        heartbeatTask = channel?.eventLoop.scheduleTask(in:.seconds(3)) { [weak self] in
-            guard let self = self, let channel = self.channel else { return }
-            
-            let header = createHeartBeatHeader(flowNo: self.flowNo)
-            self.flowNo += 1
-            channel.writeAndFlush(header.toByteBuffer()).whenComplete { result in
+    func disconnect() {
+        if let channel = channel {
+            // Close the channel asynchronously without blocking
+            channel.close().whenComplete { [self] result in
                 switch result {
-                case.success:
-                    print("Sent heartbeat")
-                    self.heartbeatRetryCount = 0
-                case.failure(let error):
-                    print("Failed to send heartbeat: \(error)")
-                    self.heartbeatRetryCount += 1
-                    if self.heartbeatRetryCount <= self.maxHeartbeatRetries {
-                        let retryDelay = self.baseHeartbeatRetryDelay * (1 << (self.heartbeatRetryCount - 1))
-                        channel.eventLoop.scheduleTask(in: retryDelay) {
-                            self.startHeartbeat(host: host, port: port)
-                        }
-                    } else {
-                        self.disconnect()
-                        self.scheduleReconnect(host: host, port: port)
-                    }
+                case .success(_):
+                    isConnected = false
+                    print("Disconnected")
+                case .failure(let error):
+                    print("Failed to connect: \(error)")
                 }
             }
         }
     }
-    
-    
     
     private func scheduleReconnect(host: String, port: Int) {
         guard !isConnected else { return }
@@ -194,24 +89,68 @@ class NIOClient {
             self?.connect(host: host, port: port)
         }
     }
-}
-
-extension NIOClient: ChannelInboundHandler {
-    typealias InboundIn = ByteBuffer
-    typealias OutboundOut = ByteBuffer
     
-    private func channelRead(context: ChannelHandlerContext, data: inout NIOClient.InboundIn) {
-        if let stringData = data.getString(at: 0, length: data.readableBytes) {
-            print("Received message: \(stringData)")
-        } else {
-            print("Failed to convert received data to string.")
+    //测试EmbededChannel
+    func testEmbededChannel() {
+        let decoderHandler = ByteToMessageHandler(MyProtocolDecoder())
+        let inboundHandler = SimpleInboundHandler()
+        let inboundHandler2 = SimpleInboundHandler()
+        let idleStateHandler = IdleStateHandler(readTimeout: TimeAmount.seconds(0),writeTimeout: TimeAmount.seconds(3), allTimeout: TimeAmount.seconds(0))
+        let outboundHandler = SimpleOutboundHandler()
+        let outboundHandler2 = SimpleOutboundHandler()
+        let encoderHandler = MessageToByteHandler(MyProtocolEncoder())
+        
+        let channel = EmbeddedChannel(handlers: [decoderHandler, inboundHandler, outboundHandler, encoderHandler])
+        do {
+            let buf = ByteBuffer(string: "hello world")
+            try channel.writeInbound(createByteBuffer(from: MyMessage(length: Int32(buf.readableBytes), body: buf)))
+            //try channel.writeOutbound(MyMessage(length: Int32(buf.readableBytes), body: buf))
         }
-    }
-    
-    func errorCaught(context: ChannelHandlerContext, error: Error) {
-        print("Error caught: \(error)")
-        context.close(promise: nil)
-        disconnect()
-        scheduleReconnect(host: "localhost", port: 8080)
+        catch {
+            print("error")
+        }
+        
+        
+        
+        //测试byteBuffer
+        var buf = ByteBuffer()
+        print(buf)
+        var str = ""
+        for _ in 0...5 {
+            str.append("a")
+        }
+        buf.writeBytes(str.data(using: .utf8)!)
+        print(buf.debugDescription)
+        print(buf.getString(at: 0, length: buf.readableBytes)!)
+        var buf1 = buf.getSlice(at: 0, length: 3)
+        var buf2 = buf.getSlice(at: 3, length: 3)
+        buf1?.setString("h", at: 0)
+        buf2?.setString("t", at: 0)
+        print("======================")
+        print(buf1!.getString(at: 0, length: buf1!.readableBytes)!)
+        print(buf2!.getString(at: 0, length: buf2!.readableBytes)!)
+        print(buf.getString(at: 0, length: buf.readableBytes)!)
+        
+        // 创建一个 ByteBuffer
+        var buffer = ByteBufferAllocator().buffer(capacity: 20)
+        buffer.writeString("Hello, NIO!")
+        
+        // 对 ByteBuffer 进行切片
+        var slice = buffer.getSlice(at: 7, length: 3)!
+        var slice1 = buffer.getSlice(at: 0, length: 5)!
+        
+        // 使用 setString 修改切片中的内容
+        slice.setString("IO!", at: 0)
+        
+        
+        // 打印原始 buffer 和切片
+        print("Original buffer: \(buffer.getString(at: 0, length: buffer.readableBytes) ?? "")")  // 输出: Hello, NIO!
+        print("Slice: \(slice.getString(at: 0, length: slice.readableBytes) ?? "")")  // 输出: IO!
+        
+        
+        var newbuffer = ByteBufferAllocator().buffer(capacity: 20)
+        newbuffer.writeBuffer(&slice)
+        newbuffer.writeBuffer(&slice1)
+        print("newbuffer: \(newbuffer.getString(at: 0, length: newbuffer.readableBytes) ?? "")")  // 输出:
     }
 }

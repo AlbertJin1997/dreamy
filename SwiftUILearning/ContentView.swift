@@ -76,10 +76,7 @@ struct PixelArtView: View {
                 }
                 .padding()
                 
-                Button("connect") {
-                    NIOClient.shared.connect(host: "lucymocktrade.qiuer.cc", port: 9932)
-                }
-                .padding()
+                
             }
             .padding()
             .alert(isPresented: $showingSaveAlert) {
@@ -100,6 +97,23 @@ struct PixelArtView: View {
                 ), in: 8...16, step: 1)
             }
             .padding()
+            
+            HStack {
+                Button("connect") {
+                    NIOClient.shared.connect(host: "8.135.10.183", port: 31519)
+                }
+                .padding()
+                
+                Button("send") {
+                    NIOClient.shared.send()
+                }
+                .padding()
+                
+                Button("close") {
+                    NIOClient.shared.disconnect()
+                }
+                .padding()
+            }
         }
     }
     

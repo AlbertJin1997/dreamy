@@ -11,6 +11,7 @@ target 'SwiftUILearning' do
   pod 'Alamofire',              '5.7.0'
   pod 'SwiftNIOSSL'
   pod 'SwiftProtobuf'
+  pod 'SwiftNIOExtras'
 
   # Pods for SwiftUILearning
 

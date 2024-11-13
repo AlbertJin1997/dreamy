@@ -30,6 +30,17 @@ PODS:
     - CNIOLinux (= 2.40.0)
     - SwiftNIOConcurrencyHelpers (= 2.40.0)
     - SwiftNIOCore (= 2.40.0)
+  - SwiftNIOExtras (1.11.0):
+    - _NIODataStructures (< 3, >= 2.32.0)
+    - CNIOAtomics (< 3, >= 2.32.0)
+    - CNIODarwin (< 3, >= 2.32.0)
+    - CNIOLinux (< 3, >= 2.32.0)
+    - CNIOWindows (< 3, >= 2.32.0)
+    - SwiftNIO (< 3, >= 2.32.0)
+    - SwiftNIOConcurrencyHelpers (< 3, >= 2.32.0)
+    - SwiftNIOCore (< 3, >= 2.32.0)
+    - SwiftNIOEmbedded (< 3, >= 2.32.0)
+    - SwiftNIOPosix (< 3, >= 2.32.0)
   - SwiftNIOPosix (2.40.0):
     - _NIODataStructures (= 2.40.0)
     - CNIOAtomics (= 2.40.0)
@@ -68,6 +79,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (= 5.7.0)
   - SwiftNIO
+  - SwiftNIOExtras
   - SwiftNIOSSL
   - SwiftProtobuf
 
@@ -85,6 +97,7 @@ SPEC REPOS:
     - SwiftNIOConcurrencyHelpers
     - SwiftNIOCore
     - SwiftNIOEmbedded
+    - SwiftNIOExtras
     - SwiftNIOPosix
     - SwiftNIOSSL
     - SwiftNIOTLS
@@ -103,11 +116,12 @@ SPEC CHECKSUMS:
   SwiftNIOConcurrencyHelpers: 697370136789b1074e4535eaae75cbd7f900370e
   SwiftNIOCore: 473fdfe746534d7aa25766916459eeaf6f92ef49
   SwiftNIOEmbedded: ffcb5147db67d9686c8366b7f8427b36132f2c8a
+  SwiftNIOExtras: 481f74d6bf0b0ef699905ed66439cb019c4975c9
   SwiftNIOPosix: b49af4bdbecaadfadd5c93dfe28594d6722b75e4
   SwiftNIOSSL: d153c5a6fc5b2301b0519b4c4d037a9414212da6
   SwiftNIOTLS: 598af547490133e9aac52aed0c23c4a90c31dcfc
   SwiftProtobuf: 4dbaffec76a39a8dc5da23b40af1a5dc01a4c02d
 
-PODFILE CHECKSUM: b854c32f75856fb176248976b98c9006be3ac851
+PODFILE CHECKSUM: 02902f28558b74c7a9ff79969b36b6e367e7a782
 
 COCOAPODS: 1.11.3
