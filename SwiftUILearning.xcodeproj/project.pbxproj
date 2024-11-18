@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		1F05EB3FE2216A6508B407AA /* libPods-SwiftUILearning-SwiftUILearningUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 401D9B3DA176EB1EBEDFCC29 /* libPods-SwiftUILearning-SwiftUILearningUITests.a */; };
+		4D29E9662CE6E29E00298FDD /* ZhuQueNGateDataStruct.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D29E9632CE6E29E00298FDD /* ZhuQueNGateDataStruct.pb.swift */; };
+		4D29E9672CE6E29E00298FDD /* ZhuQueNGateTask.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D29E9652CE6E29E00298FDD /* ZhuQueNGateTask.pb.swift */; };
+		4D29E9682CE6E29E00298FDD /* ZhuQueNGateInterface.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D29E9642CE6E29E00298FDD /* ZhuQueNGateInterface.pb.swift */; };
+		4D29E9692CE6E29E00298FDD /* ZhuQueEnum.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D29E9622CE6E29E00298FDD /* ZhuQueEnum.pb.swift */; };
+		4D29E96C2CE6E3AF00298FDD /* PackageHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D29E96B2CE6E3AF00298FDD /* PackageHeader.swift */; };
+		4D29E96F2CE7308900298FDD /* ClientUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D29E96E2CE7308900298FDD /* ClientUtil.swift */; };
+		4D29E9712CEACA8E00298FDD /* ClientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D29E9702CEACA8E00298FDD /* ClientManager.swift */; };
 		4D36AA9D2CE1EE73001E869A /* TestPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D36AA9C2CE1EE73001E869A /* TestPromise.swift */; };
 		4D36AA9F2CE1F1D0001E869A /* SwiftNioPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D36AA9E2CE1F1D0001E869A /* SwiftNioPage.swift */; };
 		4D36AAA12CE1FF4A001E869A /* TestPipline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D36AAA02CE1FF4A001E869A /* TestPipline.swift */; };
@@ -16,14 +23,12 @@
 		4D69F79D2CE4749900940D73 /* MyProtocolDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D69F79C2CE4749900940D73 /* MyProtocolDecoder.swift */; };
 		4D69F79F2CE474C900940D73 /* MyProtocolEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D69F79E2CE474C900940D73 /* MyProtocolEncoder.swift */; };
 		4D69F7A12CE4879A00940D73 /* HeartBeatHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D69F7A02CE4879A00940D73 /* HeartBeatHandler.swift */; };
-		4D69F7A32CE4A99F00940D73 /* ClientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D69F7A22CE4A99F00940D73 /* ClientManager.swift */; };
-		4D69F7A52CE4AA1700940D73 /* ClientHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D69F7A42CE4AA1700940D73 /* ClientHandler.swift */; };
+		4D69F7A52CE4AA1700940D73 /* ClientInboundHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D69F7A42CE4AA1700940D73 /* ClientInboundHandler.swift */; };
+		4D69F7A72CE59F6300940D73 /* ReconnectHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D69F7A62CE59F6300940D73 /* ReconnectHandler.swift */; };
 		4D7E9E0C2CD8DEF40098E36C /* client_cer.pem in Resources */ = {isa = PBXBuildFile; fileRef = 4D7E9E0A2CD8DEF40098E36C /* client_cer.pem */; };
 		4D7E9E0D2CD8DEF40098E36C /* client_private.pem in Resources */ = {isa = PBXBuildFile; fileRef = 4D7E9E0B2CD8DEF40098E36C /* client_private.pem */; };
 		4D7E9E0E2CD8DEF40098E36C /* ca.cer in Resources */ = {isa = PBXBuildFile; fileRef = 4D7E9E092CD8DEF40098E36C /* ca.cer */; };
 		4D7E9E102CDA20000098E36C /* SimpleInboundHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7E9E0F2CDA20000098E36C /* SimpleInboundHandler.swift */; };
-		4D976F972CD35F0F00F4745E /* TraderTaskDataStruct.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D976F962CD35F0F00F4745E /* TraderTaskDataStruct.pb.swift */; };
-		4D976F982CD35F0F00F4745E /* TraderTask.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D976F952CD35F0F00F4745E /* TraderTask.pb.swift */; };
 		4D976F9B2CD3609600F4745E /* NIOClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D976F9A2CD3609600F4745E /* NIOClient.swift */; };
 		4D976F9D2CD4A83900F4745E /* GFMarsDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D976F9C2CD4A83900F4745E /* GFMarsDefine.swift */; };
 		4DCCAD6C2C927DB5003C6970 /* SwiftUILearningApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCAD6B2C927DB5003C6970 /* SwiftUILearningApp.swift */; };
@@ -61,6 +66,13 @@
 		15A161D68EE16FB45C9303D5 /* libPods-SwiftUILearningTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SwiftUILearningTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		172500CF73F47094A45F0BF3 /* Pods-SwiftUILearning-SwiftUILearningUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftUILearning-SwiftUILearningUITests.release.xcconfig"; path = "Target Support Files/Pods-SwiftUILearning-SwiftUILearningUITests/Pods-SwiftUILearning-SwiftUILearningUITests.release.xcconfig"; sourceTree = "<group>"; };
 		401D9B3DA176EB1EBEDFCC29 /* libPods-SwiftUILearning-SwiftUILearningUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SwiftUILearning-SwiftUILearningUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D29E9622CE6E29E00298FDD /* ZhuQueEnum.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhuQueEnum.pb.swift; sourceTree = "<group>"; };
+		4D29E9632CE6E29E00298FDD /* ZhuQueNGateDataStruct.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhuQueNGateDataStruct.pb.swift; sourceTree = "<group>"; };
+		4D29E9642CE6E29E00298FDD /* ZhuQueNGateInterface.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhuQueNGateInterface.pb.swift; sourceTree = "<group>"; };
+		4D29E9652CE6E29E00298FDD /* ZhuQueNGateTask.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhuQueNGateTask.pb.swift; sourceTree = "<group>"; };
+		4D29E96B2CE6E3AF00298FDD /* PackageHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageHeader.swift; sourceTree = "<group>"; };
+		4D29E96E2CE7308900298FDD /* ClientUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientUtil.swift; sourceTree = "<group>"; };
+		4D29E9702CEACA8E00298FDD /* ClientManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientManager.swift; sourceTree = "<group>"; };
 		4D36AA9C2CE1EE73001E869A /* TestPromise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPromise.swift; sourceTree = "<group>"; };
 		4D36AA9E2CE1F1D0001E869A /* SwiftNioPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftNioPage.swift; sourceTree = "<group>"; };
 		4D36AAA02CE1FF4A001E869A /* TestPipline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPipline.swift; sourceTree = "<group>"; };
@@ -69,14 +81,12 @@
 		4D69F79C2CE4749900940D73 /* MyProtocolDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProtocolDecoder.swift; sourceTree = "<group>"; };
 		4D69F79E2CE474C900940D73 /* MyProtocolEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProtocolEncoder.swift; sourceTree = "<group>"; };
 		4D69F7A02CE4879A00940D73 /* HeartBeatHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartBeatHandler.swift; sourceTree = "<group>"; };
-		4D69F7A22CE4A99F00940D73 /* ClientManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientManager.swift; sourceTree = "<group>"; };
-		4D69F7A42CE4AA1700940D73 /* ClientHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientHandler.swift; sourceTree = "<group>"; };
+		4D69F7A42CE4AA1700940D73 /* ClientInboundHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientInboundHandler.swift; sourceTree = "<group>"; };
+		4D69F7A62CE59F6300940D73 /* ReconnectHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReconnectHandler.swift; sourceTree = "<group>"; };
 		4D7E9E092CD8DEF40098E36C /* ca.cer */ = {isa = PBXFileReference; lastKnownFileType = text; path = ca.cer; sourceTree = "<group>"; };
 		4D7E9E0A2CD8DEF40098E36C /* client_cer.pem */ = {isa = PBXFileReference; lastKnownFileType = text; path = client_cer.pem; sourceTree = "<group>"; };
 		4D7E9E0B2CD8DEF40098E36C /* client_private.pem */ = {isa = PBXFileReference; lastKnownFileType = text; path = client_private.pem; sourceTree = "<group>"; };
 		4D7E9E0F2CDA20000098E36C /* SimpleInboundHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleInboundHandler.swift; sourceTree = "<group>"; };
-		4D976F952CD35F0F00F4745E /* TraderTask.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraderTask.pb.swift; sourceTree = "<group>"; };
-		4D976F962CD35F0F00F4745E /* TraderTaskDataStruct.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraderTaskDataStruct.pb.swift; sourceTree = "<group>"; };
 		4D976F9A2CD3609600F4745E /* NIOClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NIOClient.swift; sourceTree = "<group>"; };
 		4D976F9C2CD4A83900F4745E /* GFMarsDefine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFMarsDefine.swift; sourceTree = "<group>"; };
 		4DCCAD682C927DB5003C6970 /* SwiftUILearning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUILearning.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,11 +139,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D29E96A2CE6E39700298FDD /* Package */ = {
+			isa = PBXGroup;
+			children = (
+				4D29E96B2CE6E3AF00298FDD /* PackageHeader.swift */,
+			);
+			path = Package;
+			sourceTree = "<group>";
+		};
+		4D29E96D2CE7307100298FDD /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				4D976F9C2CD4A83900F4745E /* GFMarsDefine.swift */,
+				4D29E96E2CE7308900298FDD /* ClientUtil.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
 		4D36AA9B2CE1EE65001E869A /* Test */ = {
 			isa = PBXGroup;
 			children = (
 				4D36AA9C2CE1EE73001E869A /* TestPromise.swift */,
 				4D36AAA02CE1FF4A001E869A /* TestPipline.swift */,
+				4D7E9E0F2CDA20000098E36C /* SimpleInboundHandler.swift */,
+				4D54F2A12CE31DAA00BDB183 /* SimpleOutboundHandler.swift */,
 			);
 			path = Test;
 			sourceTree = "<group>";
@@ -160,10 +189,10 @@
 		4D7E9E112CDAF6AF0098E36C /* Handler */ = {
 			isa = PBXGroup;
 			children = (
-				4D7E9E0F2CDA20000098E36C /* SimpleInboundHandler.swift */,
-				4D54F2A12CE31DAA00BDB183 /* SimpleOutboundHandler.swift */,
+				4D69F7A42CE4AA1700940D73 /* ClientInboundHandler.swift */,
 				4D54F2A32CE3511D00BDB183 /* SimpleSSLClientHandler.swift */,
 				4D69F7A02CE4879A00940D73 /* HeartBeatHandler.swift */,
+				4D69F7A62CE59F6300940D73 /* ReconnectHandler.swift */,
 			);
 			path = Handler;
 			sourceTree = "<group>";
@@ -171,8 +200,10 @@
 		4D976F942CD35F0100F4745E /* proto */ = {
 			isa = PBXGroup;
 			children = (
-				4D976F952CD35F0F00F4745E /* TraderTask.pb.swift */,
-				4D976F962CD35F0F00F4745E /* TraderTaskDataStruct.pb.swift */,
+				4D29E9622CE6E29E00298FDD /* ZhuQueEnum.pb.swift */,
+				4D29E9632CE6E29E00298FDD /* ZhuQueNGateDataStruct.pb.swift */,
+				4D29E9642CE6E29E00298FDD /* ZhuQueNGateInterface.pb.swift */,
+				4D29E9652CE6E29E00298FDD /* ZhuQueNGateTask.pb.swift */,
 			);
 			path = proto;
 			sourceTree = "<group>";
@@ -180,14 +211,15 @@
 		4D976F992CD3608200F4745E /* NIO */ = {
 			isa = PBXGroup;
 			children = (
+				4D29E96D2CE7307100298FDD /* Util */,
+				4D29E96A2CE6E39700298FDD /* Package */,
 				4D69F7992CE4744B00940D73 /* Encoder&Decoder */,
 				4D36AA9B2CE1EE65001E869A /* Test */,
 				4D7E9E112CDAF6AF0098E36C /* Handler */,
 				4D7E9DFC2CD8C25A0098E36C /* Certification */,
 				4D976F9A2CD3609600F4745E /* NIOClient.swift */,
-				4D976F9C2CD4A83900F4745E /* GFMarsDefine.swift */,
-				4D69F7A22CE4A99F00940D73 /* ClientManager.swift */,
-				4D69F7A42CE4AA1700940D73 /* ClientHandler.swift */,
+				4D29E9702CEACA8E00298FDD /* ClientManager.swift */,
+				4D976F942CD35F0100F4745E /* proto */,
 			);
 			path = NIO;
 			sourceTree = "<group>";
@@ -218,7 +250,6 @@
 			isa = PBXGroup;
 			children = (
 				4D976F992CD3608200F4745E /* NIO */,
-				4D976F942CD35F0100F4745E /* proto */,
 				4DCCAD6B2C927DB5003C6970 /* SwiftUILearningApp.swift */,
 				4DCCAD6D2C927DB5003C6970 /* ContentView.swift */,
 				4DCCAD6F2C927DB5003C6970 /* Item.swift */,
@@ -528,18 +559,23 @@
 				4DF53C722CA1628C00DBD535 /* customView.swift in Sources */,
 				4D69F7A12CE4879A00940D73 /* HeartBeatHandler.swift in Sources */,
 				4D54F2A42CE3511D00BDB183 /* SimpleSSLClientHandler.swift in Sources */,
+				4D29E96F2CE7308900298FDD /* ClientUtil.swift in Sources */,
 				4DCCAD6E2C927DB5003C6970 /* ContentView.swift in Sources */,
 				4DCCAD702C927DB5003C6970 /* Item.swift in Sources */,
-				4D976F972CD35F0F00F4745E /* TraderTaskDataStruct.pb.swift in Sources */,
 				4D69F79F2CE474C900940D73 /* MyProtocolEncoder.swift in Sources */,
-				4D69F7A52CE4AA1700940D73 /* ClientHandler.swift in Sources */,
+				4D69F7A52CE4AA1700940D73 /* ClientInboundHandler.swift in Sources */,
 				4D36AAA12CE1FF4A001E869A /* TestPipline.swift in Sources */,
-				4D976F982CD35F0F00F4745E /* TraderTask.pb.swift in Sources */,
 				4DCCAD992C927E48003C6970 /* SwiftUIView.swift in Sources */,
 				4D976F9D2CD4A83900F4745E /* GFMarsDefine.swift in Sources */,
 				4DCCAD6C2C927DB5003C6970 /* SwiftUILearningApp.swift in Sources */,
+				4D29E9662CE6E29E00298FDD /* ZhuQueNGateDataStruct.pb.swift in Sources */,
+				4D29E9672CE6E29E00298FDD /* ZhuQueNGateTask.pb.swift in Sources */,
+				4D29E9682CE6E29E00298FDD /* ZhuQueNGateInterface.pb.swift in Sources */,
+				4D29E9692CE6E29E00298FDD /* ZhuQueEnum.pb.swift in Sources */,
+				4D29E96C2CE6E3AF00298FDD /* PackageHeader.swift in Sources */,
+				4D69F7A72CE59F6300940D73 /* ReconnectHandler.swift in Sources */,
+				4D29E9712CEACA8E00298FDD /* ClientManager.swift in Sources */,
 				4D7E9E102CDA20000098E36C /* SimpleInboundHandler.swift in Sources */,
-				4D69F7A32CE4A99F00940D73 /* ClientManager.swift in Sources */,
 				4D976F9B2CD3609600F4745E /* NIOClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

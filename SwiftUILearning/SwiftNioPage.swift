@@ -33,8 +33,8 @@ struct SwiftNioPage: View {
                 NIOClient.shared.testEmbededChannel()
             }.padding()
             
-            Button("test trade") {
-                NIOClient.shared.connect(host: "lucymocktrade.qiuer.cc", port: 9932)
+            Button("test zhuque") {
+                ClientManager.shared.connect(host: "101.230.113.156", port: 8989)
             }.padding()
             
             Button("test manager") {
@@ -42,10 +42,20 @@ struct SwiftNioPage: View {
             }.padding()
             
             
-            Button("test manager send") {
-                ClientManager.shared.sendMessage("from Client") { str in
-                    print("jpf  " + str)
+            Button("test manager subscirbe") {
+                var message =  Com_Gtjaqh_Zhuque_Ngate_SubscribeThemeRequest()
+                message.themeURL = "/system/echo"
+                message.subFlag = true
+                ClientManager.shared.sendMessage(message) { response in
+                    guard let rsp = response as? Com_Gtjaqh_Zhuque_Ngate_SubscribeThemeResponse else {
+                        return
+                    }
+                    print("订阅消息回复 isError" + String(rsp.rspInfo.isError))
                 }
+            }.padding()
+            
+            Button("test manager close") {
+                ClientManager.shared.close()
             }.padding()
         }
     }

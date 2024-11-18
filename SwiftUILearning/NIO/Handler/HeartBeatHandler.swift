@@ -11,27 +11,25 @@ import NIOCore
 class HeartbeatHandler: ChannelInboundHandler {
     typealias InboundIn = ByteBuffer
     typealias InboundOut = ByteBuffer
-    
+
     func userInboundEventTriggered(context: ChannelHandlerContext, event: Any) {
         if let idleEvent = event as? IdleStateHandler.IdleStateEvent {
             switch idleEvent {
-            case .all:
-                // 如果读取和写入都为空闲（例如没有任何通信），发送心跳包
-                sendHeartbeat(context: context)
-            case .read:
-                // 如果读取空闲，触发心跳
-                sendHeartbeat(context: context)
-            case .write:
-                // 如果写入空闲，触发心跳
+            case .all, .read, .write:
+                // 处理空闲事件，触发心跳包
                 sendHeartbeat(context: context)
             }
         }
+        context.fireUserInboundEventTriggered(event)
     }
-    
+
     private func sendHeartbeat(context: ChannelHandlerContext) {
-        context.channel.writeAndFlush(ByteBuffer(string: "heartBeat")).whenSuccess { _ in
-            print("Sent heartbeat success")
+        let hearbeat = Com_Gtjaqh_Zhuque_Ngate_SystemHeartbeatRequest()
+        ClientManager.shared.sendMessage(hearbeat) { heartBeatRsp in
+            guard let rsp = heartBeatRsp as? Com_Gtjaqh_Zhuque_Ngate_SystemHeartbeatResponse else {
+                return
+            }
+            print("jpf 收到心跳回复")
         }
     }
 }
-

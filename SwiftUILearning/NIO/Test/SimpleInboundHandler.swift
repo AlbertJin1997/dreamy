@@ -41,7 +41,7 @@ class SimpleInboundHandler: ChannelInboundHandler {
     
     // 处理错误时调用
     func errorCaught(context: ChannelHandlerContext, error: Error) {
-        print("Error caught: \(error)")
+        print("Error caught: \(error.localizedDescription)")
         context.close(promise: nil)
     }
 }

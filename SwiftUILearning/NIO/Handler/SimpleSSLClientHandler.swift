@@ -11,7 +11,7 @@ import NIO
 class MutualTLSClientHandler {
     
     // 返回配置好的 NIOSSLHandler，支持双向认证
-    static func createSSLHandler(host: String) throws -> NIOSSLHandler {
+    static func createSSLHandler(host: String?) throws -> NIOSSLHandler {
         let caPath = Bundle.main.path(forResource: "ca", ofType:".cer") ??  ""
         let clientPath = Bundle.main.path(forResource: "client_cer", ofType:".pem") ??  ""
         let clientKey = Bundle.main.path(forResource: "client_private", ofType:".pem") ??  ""
@@ -27,7 +27,7 @@ class MutualTLSClientHandler {
         let trustRoot = try! NIOSSLCertificate.fromPEMFile(caPath)
         configurationClient.trustRoots = NIOSSLTrustRoots.certificates([trustRoot[0]])
         let sslContext = try! NIOSSLContext(configuration: configurationClient)
-        let sslHandler = try! NIOSSLClientHandler(context:sslContext, serverHostname:host)
+        let sslHandler = try! NIOSSLClientHandler(context:sslContext, serverHostname: host)
         
         return sslHandler
     }

@@ -7,6 +7,7 @@
 
 import Foundation
 import NIO
+import SwiftProtobuf
 
 class SimpleOutboundHandler: ChannelOutboundHandler {
     // 指定你的上下文类型
@@ -17,8 +18,6 @@ class SimpleOutboundHandler: ChannelOutboundHandler {
     func write(context: ChannelHandlerContext, data: NIOAny, promise: EventLoopPromise<Void>?) {
         var buffer = self.unwrapOutboundIn(data)
         // 在这里，你可以处理通过此 handler 发送的数据
-        
-        print("Writing data: \(buffer.readableBytes) bytes, content:\(String(describing: buffer.readString(length: buffer.readableBytes)))")
         context.write(data, promise: promise)
     }
 
@@ -33,7 +32,6 @@ class SimpleOutboundHandler: ChannelOutboundHandler {
     func errorCaught(context: ChannelHandlerContext, error: Error) {
         // 错误处理逻辑
         print("Error caught: \(error)")
-        
         // 关闭通道
         context.close(promise: nil)
     }

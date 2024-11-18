@@ -1,5 +1,5 @@
 //
-//  GFMarsDefine.swift
+//  GFTeemoDefine.swift
 //  SwiftUILearning
 //
 //  Created by 金鹏飞 on 2024/11/1.
@@ -7,28 +7,14 @@
 
 import Foundation
 
-/** Socket包包头定义 */
-struct GFMarsHeader {
-    /** 包头+包体(4Bytes) */
-    var totalLen: UInt32
-    /** 包序列号(4Bytes) */
-    var serialNo: UInt32
-    /** 功能号(2Bytes) */
-    var funcId: UInt16
-    /** 版本号(1Byte） */
-    var version: UInt8
-    /** 预留位(1Byte) */
-    var reserved: UInt8
-}
-
-enum GFMarsSocketDataType: UInt {
+enum GFTeemoSocketDataType: UInt {
     /** 连接类型 */
     case connect = 0
     /** 业务类型 */
     case business = 1
 }
 
-enum GFMarsSocketStatus: UInt {
+enum GFTeemoSocketStatus: UInt {
     /** 初始状态 */
     case initial = 0
     /** 正在连接中 */
@@ -45,7 +31,7 @@ enum GFMarsSocketStatus: UInt {
     case logged = 200
 }
 
-enum GFMarsLogoutStatus: UInt {
+enum GFTeemoLogoutStatus: UInt {
     /**
      已登出
      */
@@ -57,13 +43,13 @@ enum GFMarsLogoutStatus: UInt {
 }
 
 /** 心跳间隔 */
-let GFMarsHeartBeatInterval: TimeInterval = 30
+let GFTeemoHeartBeatInterval: TimeInterval = 30
 
 /** Socket包的包头长度 */
-let GFMarsPackageHeaderLen: Int = 12
+let GFTeemoPackageHeaderLen: Int = 12
 
 // FuncId定义
-struct GFMarsFuncId {
+struct GFTeemoFuncId {
     /** 心跳 */
     static let heartBeat = 1
     /** 登录 */
@@ -110,28 +96,30 @@ struct GFMarsFuncId {
 
 /** 通知名称 */
 extension Notification.Name {
-    static let socketConnected = Notification.Name("GFMarsSocketConnectedNotification")
-    static let socketAuthenticated = Notification.Name("GFMarsSocketAuthenticatedNotification")
-    static let socketLoggedIn = Notification.Name("GFMarsSocketLoggedInNotification")
-    static let socketAutoLoggedIn = Notification.Name("GFMarsSocketAutoLoggedInNotification")
-    static let socketLoggedOut = Notification.Name("GFMarsSocketLoggedOutNotification")
-    static let socketDisconnected = Notification.Name("GFMarsSocketDisconnectedNotification")
-    static let tradeConfirm = Notification.Name("GFMarsTradeConfirmNotification")
-    static let canFetchTradeConfirm = Notification.Name("GFMarsCanFetchTradeConfirmNotification")
-    static let entrustNotification = Notification.Name("GFMarsEntrustNotification")
+    static let socketConnected = Notification.Name("GFTeemoSocketConnectedNotification")
+    static let socketAuthenticated = Notification.Name("GFTeemoSocketAuthenticatedNotification")
+    static let socketLoggedIn = Notification.Name("GFTeemoSocketLoggedInNotification")
+    static let socketAutoLoggedIn = Notification.Name("GFTeemoSocketAutoLoggedInNotification")
+    static let socketLoggedOut = Notification.Name("GFTeemoSocketLoggedOutNotification")
+    static let socketDisconnected = Notification.Name("GFTeemoSocketDisconnectedNotification")
+    static let tradeConfirm = Notification.Name("GFTeemoTradeConfirmNotification")
+    static let canFetchTradeConfirm = Notification.Name("GFTeemoCanFetchTradeConfirmNotification")
+    static let entrustNotification = Notification.Name("GFTeemoEntrustNotification")
 }
 
 /** socket连接的服务端IP */
-let GFMarsSocketIP = "lucytradegwtest.gtjaqh.com"
+let GFTeemoSocketIP = "lucytradegwtest.gtjaqh.com"
 /** socket连接的服务端Port */
-let GFMarsSocketPort = 8902
+let GFTeemoSocketPort = 8902
 /** socket重试次数 */
-let GFMarsSocketRetryCount = 6
+let GFTeemoSocketRetryCount = 6
+/** 头部固定长度*/
+let GFTeemoHeaderLength = 12
 
-let GFMarsFlowNo = "flowNo"
-let GFMarsCode = "code"
-let GFMarsMsg = "msg"
-let GFMarsData = "data"
+let GFTeemoFlowNo = "flowNo"
+let GFTeemoCode = "code"
+let GFTeemoMsg = "msg"
+let GFTeemoData = "data"
 
 /** Package Header保留字段本地保存的Key值 */
-let GFMarsSocketPackageHeaderReservedKey = "GFMarsSocketPackageHeaderReservedKey"
+let GFTeemoSocketPackageHeaderReservedKey = "GFTeemoSocketPackageHeaderReservedKey"
