@@ -31,6 +31,7 @@
 		4D7E9E102CDA20000098E36C /* SimpleInboundHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7E9E0F2CDA20000098E36C /* SimpleInboundHandler.swift */; };
 		4D976F9B2CD3609600F4745E /* NIOClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D976F9A2CD3609600F4745E /* NIOClient.swift */; };
 		4D976F9D2CD4A83900F4745E /* GFMarsDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D976F9C2CD4A83900F4745E /* GFMarsDefine.swift */; };
+		4DCB72362CEC75BB00564A93 /* GFTeemoResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCB72352CEC75BB00564A93 /* GFTeemoResponseModel.swift */; };
 		4DCCAD6C2C927DB5003C6970 /* SwiftUILearningApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCAD6B2C927DB5003C6970 /* SwiftUILearningApp.swift */; };
 		4DCCAD6E2C927DB5003C6970 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCAD6D2C927DB5003C6970 /* ContentView.swift */; };
 		4DCCAD702C927DB5003C6970 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCCAD6F2C927DB5003C6970 /* Item.swift */; };
@@ -89,6 +90,7 @@
 		4D7E9E0F2CDA20000098E36C /* SimpleInboundHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleInboundHandler.swift; sourceTree = "<group>"; };
 		4D976F9A2CD3609600F4745E /* NIOClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NIOClient.swift; sourceTree = "<group>"; };
 		4D976F9C2CD4A83900F4745E /* GFMarsDefine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFMarsDefine.swift; sourceTree = "<group>"; };
+		4DCB72352CEC75BB00564A93 /* GFTeemoResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFTeemoResponseModel.swift; sourceTree = "<group>"; };
 		4DCCAD682C927DB5003C6970 /* SwiftUILearning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUILearning.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DCCAD6B2C927DB5003C6970 /* SwiftUILearningApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUILearningApp.swift; sourceTree = "<group>"; };
 		4DCCAD6D2C927DB5003C6970 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				4D29E96B2CE6E3AF00298FDD /* PackageHeader.swift */,
+				4DCB72352CEC75BB00564A93 /* GFTeemoResponseModel.swift */,
 			);
 			path = Package;
 			sourceTree = "<group>";
@@ -568,6 +571,7 @@
 				4DCCAD992C927E48003C6970 /* SwiftUIView.swift in Sources */,
 				4D976F9D2CD4A83900F4745E /* GFMarsDefine.swift in Sources */,
 				4DCCAD6C2C927DB5003C6970 /* SwiftUILearningApp.swift in Sources */,
+				4DCB72362CEC75BB00564A93 /* GFTeemoResponseModel.swift in Sources */,
 				4D29E9662CE6E29E00298FDD /* ZhuQueNGateDataStruct.pb.swift in Sources */,
 				4D29E9672CE6E29E00298FDD /* ZhuQueNGateTask.pb.swift in Sources */,
 				4D29E9682CE6E29E00298FDD /* ZhuQueNGateInterface.pb.swift in Sources */,

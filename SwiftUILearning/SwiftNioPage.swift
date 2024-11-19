@@ -47,7 +47,11 @@ struct SwiftNioPage: View {
                 message.themeURL = "/system/echo"
                 message.subFlag = true
                 ClientManager.shared.sendMessage(message) { response in
-                    guard let rsp = response as? Com_Gtjaqh_Zhuque_Ngate_SubscribeThemeResponse else {
+                    if (!response.success) {
+                        print(response.errMsg)
+                        return
+                    }
+                    guard let rsp = response.data as? Com_Gtjaqh_Zhuque_Ngate_SubscribeThemeResponse else {
                         return
                     }
                     print("订阅消息回复 isError" + String(rsp.rspInfo.isError))

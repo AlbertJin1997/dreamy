@@ -26,7 +26,7 @@ class HeartbeatHandler: ChannelInboundHandler {
     private func sendHeartbeat(context: ChannelHandlerContext) {
         let hearbeat = Com_Gtjaqh_Zhuque_Ngate_SystemHeartbeatRequest()
         ClientManager.shared.sendMessage(hearbeat) { heartBeatRsp in
-            guard let rsp = heartBeatRsp as? Com_Gtjaqh_Zhuque_Ngate_SystemHeartbeatResponse else {
+            guard heartBeatRsp.data is Com_Gtjaqh_Zhuque_Ngate_SystemHeartbeatResponse else {
                 return
             }
             print("jpf 收到心跳回复")

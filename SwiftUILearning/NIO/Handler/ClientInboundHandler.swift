@@ -7,14 +7,19 @@
 
 import NIO
 import SwiftProtobuf
+import Foundation
+
+protocol GFTeemoResponseHandlerDelegate: AnyObject {
+    func handleResponse(sequenceNumber: Int, response: GFTeemoResponseModel)
+}
 
 class ClientInboundHandler: ChannelInboundHandler {
     typealias InboundIn = ByteBuffer
     typealias InboundOut = Void
     
-    weak var delegate: ClientManager?
+    weak var delegate: GFTeemoResponseHandlerDelegate?
     
-    init(delegate: ClientManager?) {
+    init(delegate: GFTeemoResponseHandlerDelegate) {
         self.delegate = delegate
     }
     
@@ -25,12 +30,17 @@ class ClientInboundHandler: ChannelInboundHandler {
         register.xOsVersion = "ios"
         register.zid = "fasfasfasfafasfas"
         ClientManager.shared.sendMessage(register) { response in
-            guard let rsp = response as? Com_Gtjaqh_Zhuque_Ngate_SystemInfoRegisterResponse else {
+            guard let rsp = response.data as? Com_Gtjaqh_Zhuque_Ngate_SystemInfoRegisterResponse else {
                 return
             }
             print(rsp.rspInfo.debugDescription)
         }
         context.fireChannelActive()
+    }
+    
+    func channelInactive(context: ChannelHandlerContext) {
+        
+        context.fireChannelInactive()
     }
     
     func channelRead(context: ChannelHandlerContext, data: NIOAny) {
@@ -79,7 +89,7 @@ class ClientInboundHandler: ChannelInboundHandler {
     private func deserializeAndHandleModel<T: Message>(_ dataBuffer: ByteBuffer, modelType: T.Type, header: PackageHeader) {
         do {
             let model = try T(serializedBytes: Data(dataBuffer.readableBytesView))
-            self.delegate?.handleResponse(sequenceNumber: Int(header.serialNo), response: model)
+            self.delegate?.handleResponse(sequenceNumber: Int(header.serialNo), response: GFTeemoResponseModel(success: true, data: model, errMsg: ""))
         } catch {
             print("Error deserializing model \(modelType): \(error)")
         }

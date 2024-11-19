@@ -11,20 +11,20 @@ import NIOExtras
 import NIOCore
 import SwiftProtobuf
 
-class ClientManager {
+class ClientManager: GFTeemoResponseHandlerDelegate {
     static let shared = ClientManager() // 单例实例
     private var eventLoopGroup: EventLoopGroup
     private var bootstrap: ClientBootstrap!
     private var channel: Channel?
     
     // 存储请求序列号与回调的映射
-    private var requestHandlers: [Int: (Message) -> Void] = [:]
-    var currentSequenceNumber: Int = 0
+    private var isConnecting: Bool = false // 用来控制连接的状态，防止并发重连
+    private var responseHandlers: [Int: (GFTeemoResponseModel) -> Void] = [:]
     private var host: String = ""
     private var port: Int = 0
     var isClosedByClient: Bool = false
-    private var isConnecting: Bool = false // 用来控制连接的状态，防止并发重连
-    
+    var currentSequenceNumber: Int = 0
+   
     // 使用 DispatchQueue 来保证线程安全
     private let requestQueue = DispatchQueue(label: "com.clientManager.requestsQueue", attributes: .concurrent)
 
@@ -36,7 +36,7 @@ class ClientManager {
             .channelInitializer { [weak self] channel in
 //                let sslHandler = try! MutualTLSClientHandler.createSSLHandler(host: nil)
                 let idleStateHandler = IdleStateHandler(readTimeout: TimeAmount.seconds(3), writeTimeout: TimeAmount.seconds(3), allTimeout: TimeAmount.seconds(3))
-                return channel.pipeline.addHandlers([ReconnectHandler(), idleStateHandler, HeartbeatHandler(), ClientInboundHandler(delegate: self)])
+                return channel.pipeline.addHandlers([ReconnectHandler(), idleStateHandler, HeartbeatHandler(), ClientInboundHandler(delegate: self!)])
             }
     }
     
@@ -98,16 +98,13 @@ class ClientManager {
     }
     
     // 发送消息并处理响应，传入的闭包会在服务器响应后被调用
-    func sendMessage(_ message: Message, responseHandler: ((Message) -> Void)? = nil) {
+    func sendMessage(_ message: Message, responseHandler: ((GFTeemoResponseModel) -> Void)? = nil) {
         guard let channel = channel else {
             print("No channel available")
             return
         }
-        
         // 创建包含序列号的消息
         let sequenceNumber = nextSequenceNumber()
-        
-        // 使用 JSON 编码进行消息格式化
         do {
             let requestType = String(describing: type(of: message))
             let data = try message.serializedData()
@@ -125,7 +122,7 @@ class ClientManager {
             // 如果提供了闭包，则保存回调
             if let responseHandler = responseHandler {
                 requestQueue.async(flags: .barrier) {
-                    self.requestHandlers[sequenceNumber] = responseHandler
+                    self.responseHandlers[sequenceNumber] = responseHandler
                 }
             }
             
@@ -148,21 +145,28 @@ class ClientManager {
         channel.close().whenComplete { result in
             switch result {
             case .success:
-                // 关闭成功
                 print("Channel successfully closed.")
             case .failure(let error):
-                // 关闭失败
                 self.isClosedByClient = false
                 print("Failed to close channel with error: \(error)")
             }
         }
     }
     
+    // 断联时释放handler字典
+    func freeHandler() {
+        for (key, handler) in responseHandlers {
+            let rsp = GFTeemoResponseModel(success: false, data: Com_Gtjaqh_Zhuque_Ngate_RspInfo(), errMsg: "连接断开无法执行")
+            handler(rsp) // 执行闭包
+            responseHandlers.removeValue(forKey: key) // 删除该项
+        }
+    }
+    
     // 处理从服务器接收到的响应
-    func handleResponse(sequenceNumber: Int, response: Message) {
+    func handleResponse(sequenceNumber: Int, response: GFTeemoResponseModel) {
         // 使用线程安全的队列来处理请求的回调
         requestQueue.async(flags: .barrier) {
-            if let responseHandler = self.requestHandlers.removeValue(forKey: sequenceNumber) {
+            if let responseHandler = self.responseHandlers.removeValue(forKey: sequenceNumber) {
                 // 执行对应的回调
                 responseHandler(response)
             } else {
