@@ -12,6 +12,7 @@ target 'SwiftUILearning' do
   pod 'SwiftNIOSSL'
   pod 'SwiftProtobuf'
   pod 'SwiftNIOExtras'
+  pod 'SnapKit'
 
   # Pods for SwiftUILearning
 

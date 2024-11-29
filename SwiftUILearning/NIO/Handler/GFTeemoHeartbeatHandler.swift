@@ -1,5 +1,5 @@
 //
-//  HeartBeatHandler.swift
+//  GFTeemoHeartbeatHandler.swift
 //  SwiftUILearning
 //
 //  Created by 金鹏飞 on 2024/11/13.
@@ -8,7 +8,7 @@
 import NIO
 import NIOCore
 
-class HeartbeatHandler: ChannelInboundHandler {
+class GFTeemoHeartbeatHandler: ChannelInboundHandler {
     typealias InboundIn = ByteBuffer
     typealias InboundOut = ByteBuffer
 
@@ -17,6 +17,7 @@ class HeartbeatHandler: ChannelInboundHandler {
             switch idleEvent {
             case .all, .read, .write:
                 // 处理空闲事件，触发心跳包
+                print("\(context.channel.isActive)")
                 sendHeartbeat(context: context)
             }
         }
@@ -25,7 +26,7 @@ class HeartbeatHandler: ChannelInboundHandler {
 
     private func sendHeartbeat(context: ChannelHandlerContext) {
         let hearbeat = Com_Gtjaqh_Zhuque_Ngate_SystemHeartbeatRequest()
-        ClientManager.shared.sendMessage(hearbeat) { heartBeatRsp in
+        GFTeemoClientManager.shared.sendMessage(message: hearbeat) { heartBeatRsp in
             guard heartBeatRsp.data is Com_Gtjaqh_Zhuque_Ngate_SystemHeartbeatResponse else {
                 return
             }

@@ -28,7 +28,7 @@ class NIOClient {
                 let idleStateHandler = IdleStateHandler(readTimeout: TimeAmount.seconds(90),writeTimeout: TimeAmount.seconds(30), allTimeout: TimeAmount.seconds(100))
                 let outboundHandler = SimpleOutboundHandler()
                 let outboundHandler2 = SimpleOutboundHandler()
-                let heartBeatHandler = HeartbeatHandler()
+                let heartBeatHandler = GFTeemoHeartbeatHandler()
                 //let sslHandler = try! MutualTLSClientHandler.createSSLHandler(host: host)
                 
                 // Return the result of adding handlers, which is an EventLoopFuture

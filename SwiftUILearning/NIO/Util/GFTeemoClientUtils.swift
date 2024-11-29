@@ -8,7 +8,7 @@
 import Foundation
 import SwiftProtobuf
 
-class ClientUtil {
+class GFTeemoClientUtils {
     static var RequestToFunIdDic: [String : Int] = [
         // 心跳 funId 1
         "Com_Gtjaqh_Zhuque_Ngate_SystemHeartbeatRequest" : Com_Gtjaqh_Zhuque_Ngate_InterfaceType.systemHeartbeat.rawValue,

@@ -1,2 +1,3 @@
 ${PODS_ROOT}/Target Support Files/Pods-SwiftUILearning-SwiftUILearningUITests/Pods-SwiftUILearning-SwiftUILearningUITests-resources.sh
+${PODS_CONFIGURATION_BUILD_DIR}/SnapKit/SnapKit_Privacy.bundle
 ${PODS_CONFIGURATION_BUILD_DIR}/SwiftProtobuf/SwiftProtobuf.bundle

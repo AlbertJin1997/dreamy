@@ -8,6 +8,7 @@ PODS:
   - CNIODarwin (2.40.0)
   - CNIOLinux (2.40.0)
   - CNIOWindows (2.40.0)
+  - SnapKit (5.7.1)
   - SwiftNIO (2.40.0):
     - _NIODataStructures (= 2.40.0)
     - CNIOAtomics (= 2.40.0)
@@ -78,6 +79,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (= 5.7.0)
+  - SnapKit
   - SwiftNIO
   - SwiftNIOExtras
   - SwiftNIOSSL
@@ -93,6 +95,7 @@ SPEC REPOS:
     - CNIODarwin
     - CNIOLinux
     - CNIOWindows
+    - SnapKit
     - SwiftNIO
     - SwiftNIOConcurrencyHelpers
     - SwiftNIOCore
@@ -112,6 +115,7 @@ SPEC CHECKSUMS:
   CNIODarwin: 93850990d29f2626b05306c6c9309f9be0d74c2f
   CNIOLinux: 62e3505f50de558c393dc2f273dde71dcce518da
   CNIOWindows: 3047f2d8165848a3936a0a755fee27c6b5ee479b
+  SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   SwiftNIO: 829958aab300642625091f82fc2f49cb7cf4ef24
   SwiftNIOConcurrencyHelpers: 697370136789b1074e4535eaae75cbd7f900370e
   SwiftNIOCore: 473fdfe746534d7aa25766916459eeaf6f92ef49
@@ -122,6 +126,6 @@ SPEC CHECKSUMS:
   SwiftNIOTLS: 598af547490133e9aac52aed0c23c4a90c31dcfc
   SwiftProtobuf: 4dbaffec76a39a8dc5da23b40af1a5dc01a4c02d
 
-PODFILE CHECKSUM: 02902f28558b74c7a9ff79969b36b6e367e7a782
+PODFILE CHECKSUM: 6c282ddf9451e914cee1db467babbde27ffddd29
 
 COCOAPODS: 1.11.3

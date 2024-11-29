@@ -1,6 +1,5 @@
 //
-//  SimpleSSLClientHandler.swift
-//  SwiftUILearning
+//  GFTeemoTLSClientHandler.swift
 //
 //  Created by 金鹏飞 on 2024/11/12.
 //
@@ -8,7 +7,7 @@
 import NIOSSL
 import NIO
 
-class MutualTLSClientHandler {
+class GFTeemoTLSClientHandler {
     
     // 返回配置好的 NIOSSLHandler，支持双向认证
     static func createSSLHandler(host: String?) throws -> NIOSSLHandler {

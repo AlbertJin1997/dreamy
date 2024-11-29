@@ -8,7 +8,7 @@
 import Foundation
 import SwiftProtobuf
 
-class GFTeemoResponseModel {
+@objc public class GFTeemoResponseModel: NSObject {
     var success: Bool
     var data: Message?
     var errMsg: String

@@ -1,5 +1,5 @@
 //
-//  PackageHeader.swift
+//  GFTeemoPackageHeader.swift
 //  SwiftUILearning
 //
 //  Created by 金鹏飞 on 2024/11/15.
@@ -8,7 +8,7 @@
 import NIO
 
 // 定义PacketHeader结构体
-struct PackageHeader {
+struct GFTeemoPackageHeader {
     var length: UInt32
     var serialNo: UInt32
     var functionId: UInt16
@@ -39,7 +39,7 @@ struct PackageHeader {
     }
 
     // 从ByteBuffer解码出PacketHeader
-    static func decode(from buffer: inout ByteBuffer) -> PackageHeader? {
+    static func decode(from buffer: inout ByteBuffer) -> GFTeemoPackageHeader? {
         guard let length = buffer.readInteger(as: UInt32.self),
               let serialNo = buffer.readInteger(as: UInt32.self),
               let functionId = buffer.readInteger(as: UInt16.self),
@@ -48,6 +48,6 @@ struct PackageHeader {
                   return nil
               }
         
-        return PackageHeader(length: length, serialNo: serialNo, functionId: functionId, version: version, reserved: reserved)
+        return GFTeemoPackageHeader(length: length, serialNo: serialNo, functionId: functionId, version: version, reserved: reserved)
     }
 }
